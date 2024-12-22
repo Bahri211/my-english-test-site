@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>zeman - أهم الجمل</title>
+
+  <!-- خط جوجل -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- ========== CSS داخلي ========== -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Tajawal", sans-serif;
+    }
+    body {
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* خلفية متدرجة */
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+    }
+
+    header, main, footer {
+      width: 100%;
+      max-width: 700px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-weight: 700;
+    }
+    header p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      padding: 20px;
+    }
+
+    .sentence-list {
+      text-align: left;
+      margin-top: 20px;
+      line-height: 1.8;
+    }
+    .sentence-list li {
+      margin-bottom: 10px;
+      background: #f7f7f7;
+      border-radius: 6px;
+      padding: 10px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .sentence-list li:hover {
+      background: #e9e9e9;
+      transform: translateX(5px);
+    }
+    .en {
+      font-weight: 700;
+      color: #24243e;
+    }
+    .ar {
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #302b63;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+      margin-top: 20px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+    .btn:hover {
+      background: #241f4b;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #fff;
+      margin-top: auto;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+    }
+    
+    @media (min-width: 768px){
+      header h2 {
+        font-size: 2.4rem;
+      }
+      .btn {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- رأس الصفحة -->
+  <header>
+    <h2>zeman - أهم الجمل</h2>
+    <p>مجموعة جُمَل مفيدة في الحياة اليومية للتمرّن على اللغة الإنجليزية.</p>
+  </header>
+
+  <!-- المحتوى -->
+  <main>
+    <div class="container">
+      <ul class="sentence-list">
+        <li>
+          <span class="en">Hello, how are you?</span>  
+          <br/>
+          <span class="ar">مرحبًا، كيف حالك؟</span>
+        </li>
+        <li>
+          <span class="en">Where is the nearest hospital?</span>
+          <br/>
+          <span class="ar">أين أقرب مستشفى؟</span>
+        </li>
+        <li>
+          <span class="en">How much does this cost?</span>
+          <br/>
+          <span class="ar">كم سعر هذا؟</span>
+        </li>
+        <li>
+          <span class="en">Could you help me, please?</span>
+          <br/>
+          <span class="ar">هل يمكنك مساعدتي من فضلك؟</span>
+        </li>
+        <li>
+          <span class="en">I need to make a reservation.</span>
+          <br/>
+          <span class="ar">أحتاج لإجراء حجز.</span>
+        </li>
+        <li>
+          <span class="en">Excuse me, where is the restroom?</span>
+          <br/>
+          <span class="ar">عذرًا، أين دورة المياه؟</span>
+        </li>
+        <li>
+          <span class="en">I'm sorry for being late.</span>
+          <br/>
+          <span class="ar">أعتذر عن التأخر.</span>
+        </li>
+        <li>
+          <span class="en">Could you speak more slowly?</span>
+          <br/>
+          <span class="ar">هل يمكنك التحدث ببطء أكثر؟</span>
+        </li>
+        <li>
+          <span class="en">I don't understand. Could you repeat that?</span>
+          <br/>
+          <span class="ar">لا أفهم، هل يمكنك إعادة ذلك؟</span>
+        </li>
+        <li>
+          <span class="en">Thank you very much!</span>
+          <br/>
+          <span class="ar">شكرًا جزيلاً لك!</span>
+        </li>
+        <li>
+          <span class="en">I'm looking for a bank.</span>
+          <br/>
+          <span class="ar">أبحث عن بنك.</span>
+        </li>
+        <li>
+          <span class="en">Could you give me a discount?</span>
+          <br/>
+          <span class="ar">هل يمكنك منحي تخفيضاً؟</span>
+        </li>
+        <li>
+          <span class="en">I'd like to order some food.</span>
+          <br/>
+          <span class="ar">أود طلب بعض الطعام.</span>
+        </li>
+        <li>
+          <span class="en">Where can I find a taxi?</span>
+          <br/>
+          <span class="ar">أين يمكنني العثور على سيارة أجرة؟</span>
+        </li>
+        <li>
+          <span class="en">When does the train leave?</span>
+          <br/>
+          <span class="ar">متى يغادر القطار؟</span>
+        </li>
+        <li>
+          <span class="en">I'm not feeling well.</span>
+          <br/>
+          <span class="ar">لا أشعر أنني بخير.</span>
+        </li>
+        <li>
+          <span class="en">Do you speak English?</span>
+          <br/>
+          <span class="ar">هل تتحدث الإنجليزية؟</span>
+        </li>
+        <li>
+          <span class="en">I really appreciate your help.</span>
+          <br/>
+          <span class="ar">أقدّر مساعدتك حقًا.</span>
+        </li>
+        <li>
+          <span class="en">Have a nice day!</span>
+          <br/>
+          <span class="ar">أتمنى لك يومًا سعيدًا!</span>
+        </li>
+        <li>
+          <span class="en">See you soon!</span>
+          <br/>
+          <span class="ar">أراك قريبًا!</span>
+        </li>
+      </ul>
+      <!-- زر عودة للرئيسية -->
+      <a href="index.html" class="btn">عودة للرئيسية</a>
+    </div>
+  </main>
+
+  <!-- تذييل -->
+  <footer>
+    <p>&copy; 2024 zeman - جميع الحقوق محفوظة</p>
+  </footer>
+</body>
+</html>

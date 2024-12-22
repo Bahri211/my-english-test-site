@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>zeman - نتيجة الاختبار</title>
+
+  <!-- الخط نفسه للتناسق -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- ========== CSS داخلي ========== -->
+  <style>
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      font-family: "Tajawal", sans-serif;
+    }
+    body {
+      direction: rtl;
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header, main, footer {
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      padding: 20px;
+    }
+    header h2 {
+      margin-bottom: 10px;
+      font-size: 2rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-weight: 700;
+    }
+
+    .container {
+      width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      padding: 20px;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .container h3 {
+      margin-bottom: 20px;
+      color: #11998e;
+      font-weight: 700;
+    }
+    .score {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .level {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .tips {
+      background: #fafafa;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 15px;
+      text-align: left;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #11998e;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      margin-top: 20px;
+      font-size: 1rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      font-weight: 600;
+    }
+    .btn:hover {
+      background: #0e806c;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      margin-top: auto;
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 768px) {
+      header h2 {
+        font-size: 2.4rem;
+      }
+      .container {
+        margin-top: 40px;
+      }
+      .btn {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- رأس الصفحة -->
+  <header>
+    <h2>zeman - نتيجة الاختبار</h2>
+  </header>
+
+  <!-- المحتوى الرئيسي -->
+  <main>
+    <div class="container">
+      <h3>نتيجتك</h3>
+      <p id="scoreText" class="score"></p>
+      <p id="levelText" class="level"></p>
+      <div id="tipsBox" class="tips"></div>
+      <!-- زر للعودة للرئيسية -->
+      <a class="btn" href="index.html">عودة للرئيسية</a>
+    </div>
+  </main>
+
+  <!-- تذييل -->
+  <footer>
+    <p>&copy; 2024 zeman - جميع الحقوق محفوظة</p>
+  </footer>
+
+  <!-- ========== JavaScript ========== -->
+  <script>
+    // جلب القيم من LocalStorage
+    const score = parseInt(localStorage.getItem("userScore") || "0");
+    const total = parseInt(localStorage.getItem("totalQuestions") || "1");
+
+    const scoreText = document.getElementById("scoreText");
+    const levelText = document.getElementById("levelText");
+    const tipsBox = document.getElementById("tipsBox");
+
+    // حساب النسبة
+    const percentage = (score / total) * 100;
+
+    scoreText.textContent = `لقد أجبت على ${score} من أصل ${total} بشكل صحيح (${percentage.toFixed(0)}%).`;
+
+    let level = "";
+    let tips = "";
+
+    // تحديد المستوى
+    if (percentage < 40) {
+      level = "مبتدئ (Beginner)";
+      tips = `
+        <p>- ابدأ بتعلم المفردات والقواعد الأساسية يوميًا، وراجعها باستمرار.</p>
+        <p>- شاهد مقاطع فيديو قصيرة باللغة الإنجليزية مع الترجمة العربية.</p>
+        <p>- مارس المحادثة مع أصدقاء أو عبر تطبيقات اللغات ولو لدقائق.</p>
+      `;
+    } else if (percentage < 80) {
+      level = "متوسط (Intermediate)";
+      tips = `
+        <p>- وسّع مفرداتك عبر قراءة مقالات أو قصص متوسطة الصعوبة.</p>
+        <p>- شاهد أفلاماً أو مسلسلات بالإنجليزية مع ترجمة إنجليزية لتعزيز سمعك.</p>
+        <p>- شارك في محادثات جماعية أو اكتب نصوصاً قصيرة لتطوير إنتاجك اللغوي.</p>
+      `;
+    } else {
+      level = "متقدم (Advanced)";
+      tips = `
+        <p>- مارس اللغة يوميًا عبر المحتوى الأصلي كالمحاضرات والوثائقيات والنقاشات.</p>
+        <p>- جرّب الكتابة الأكاديمية أو المقالات المعقدة لتحدي نفسك ومفرداتك.</p>
+        <p>- شارك في اختبارات عالمية (IELTS / TOEFL) أو مناظرات لرفع مستواك.</p>
+      `;
+    }
+
+    levelText.textContent = `مستواك: ${level}`;
+    tipsBox.innerHTML = tips;
+
+    // يمكنك مسح البيانات إن رغبت
+    // localStorage.removeItem("userScore");
+    // localStorage.removeItem("totalQuestions");
+    // localStorage.removeItem("testType");
+  </script>
+</body>
+</html>

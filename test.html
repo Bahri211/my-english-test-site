@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>zeman - أسئلة الاختبار</title>
+
+  <!-- نفس الخط لجعل التصميم متناسق -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- ========== CSS داخلي ========== -->
+  <style>
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      font-family: "Tajawal", sans-serif;
+    }
+    body {
+      direction: rtl;
+      background: linear-gradient(135deg, #C33764, #1D2671); /* تدرج بنفسجي أنيق */
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header, main, footer {
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      max-width: 800px;
+    }
+    header h2 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+      font-weight: 700;
+    }
+
+    .quiz-container {
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      padding: 20px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .quiz-container h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      color: #C33764;
+      font-weight: 700;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .question-number {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #444;
+    }
+    .question-text {
+      margin-bottom: 10px;
+      line-height: 1.5;
+      font-size: 1rem;
+    }
+
+    .answers {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+    .answers li {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 8px;
+      transition: background 0.3s, transform 0.2s;
+      cursor: pointer;
+    }
+    .answers li:hover {
+      background: #fce4ec; /* لون وردي خفيف */
+      transform: translateX(4px);
+    }
+    .answers input[type="radio"] {
+      margin-right: 8px;
+    }
+    .answers label {
+      cursor: pointer;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #C33764;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s;
+      margin-top: 10px;
+      font-size: 1rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      font-weight: 600;
+    }
+    .btn:hover {
+      background: #a82d55;
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    /* شريط التقدم */
+    .progress {
+      height: 10px;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: inset 0 2px 3px rgba(0,0,0,0.1);
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #C33764;
+      transition: width 0.3s;
+    }
+
+    footer {
+      color: #fff;
+      background: rgba(0,0,0,0.3);
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: auto;
+      padding: 10px;
+    }
+
+    @media (min-width: 768px) {
+      header h2 {
+        font-size: 2.6rem;
+      }
+      .btn {
+        font-size: 1.1rem;
+      }
+      .quiz-container {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- رأس الصفحة -->
+  <header>
+    <h2>zeman - اختبار تحديد مستوى اللغة الإنجليزية</h2>
+  </header>
+
+  <!-- المحتوى الرئيسي: أسئلة الاختبار -->
+  <main>
+    <div class="quiz-container">
+      <h3 id="testTitle">...</h3>
+      <div class="progress">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div id="quiz"></div>
+      <button id="nextBtn" class="btn">التالي</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 zeman - جميع الحقوق محفوظة</p>
+  </footer>
+
+  <!-- ========== JavaScript ========== -->
+  <script>
+    // 1. قراءة نوع الاختبار من LocalStorage
+    const testType = localStorage.getItem("testType") || "short";
+
+    // 2. تعريف المجموعات الثلاث (قصير، متوسط، كامل)
+    // (نفس الأسئلة السابقة أو يمكنك تعديلها)
+    const shortQuestions = [
+      {
+        question: "1. Which article is correct: 'I have ____ idea' ?",
+        answers: ["a", "an", "the", "no article needed"],
+        correct: 1
+      },
+      {
+        question: "2. ما معنى كلمة (Hungry)؟",
+        answers: ["جائع", "عطشان", "فرِح", "متعب"],
+        correct: 0
+      },
+      {
+        question: "3. اختَر الشكل الصحيح لجمع كلمة (man):",
+        answers: ["mans", "mens", "men", "man's"],
+        correct: 2
+      },
+      {
+        question: "4. أي جملة صحيحة؟",
+        answers: [
+          "He play football every day.",
+          "He plays football every day.",
+          "He is playing football every day.",
+          "He will play football everyday."
+        ],
+        correct: 1
+      },
+      {
+        question: "5. في زمن المضارع المستمر (Present Continuous)، أي جملة صحيحة؟",
+        answers: [
+          "I working now.",
+          "I am working now.",
+          "I works now.",
+          "I is working now."
+        ],
+        correct: 1
+      },
+      {
+        question: "6. What does 'early' mean?",
+        answers: ["متأخر", "في الوقت", "مبكر", "مفاجئ"],
+        correct: 2
+      },
+      {
+        question: "7. أي كلمة تعني (يفهم)؟",
+        answers: ["understand", "enter", "stand", "overcome"],
+        correct: 0
+      },
+      {
+        question: "8. اختَر الصيغة الصحيحة لنفي جملة (I like apples) في المضارع البسيط:",
+        answers: [
+          "I like not apples.",
+          "I don't like apples.",
+          "I'm not liking apples.",
+          "I doesn't like apples."
+        ],
+        correct: 1
+      },
+      {
+        question: "9. ما الترجمة الصحيحة لكلمة (Library)؟",
+        answers: ["مكتبة", "مختبر", "مغسلة", "مطعم"],
+        correct: 0
+      },
+      {
+        question: "10. أي جملة صحيحة في الماضي البسيط؟",
+        answers: [
+          "She go to school yesterday.",
+          "She goes to school yesterday.",
+          "She went to school yesterday.",
+          "She is going to school yesterday."
+        ],
+        correct: 2
+      }
+    ];
+
+    const mediumQuestions = [
+      {
+        question: "1. Which verb is irregular?",
+        answers: ["Walk", "Talk", "Eat", "Look"],
+        correct: 2
+      },
+      {
+        question: "2. أي كلمة تعني (ممتع) باللغة الإنجليزية؟",
+        answers: ["Boring", "Entertaining", "Annoying", "Difficult"],
+        correct: 1
+      },
+      {
+        question: "3. Choose the correct pronoun: 'This book is mine, that book is ______.'",
+        answers: ["yours", "your", "hers", "theirs"],
+        correct: 0
+      },
+      {
+        question: "4. ما الترجمة الصحيحة لكلمة (Application)؟",
+        answers: ["طلب/تطبيق", "مقابلة", "وظيفة", "اتفاق"],
+        correct: 0
+      },
+      {
+        question: "5. Which sentence is in the present perfect?",
+        answers: [
+          "I ate breakfast today.",
+          "I have eaten breakfast today.",
+          "I am eating breakfast now.",
+          "I was eating breakfast yesterday."
+        ],
+        correct: 1
+      },
+      {
+        question: "6. أي كلمة تعني (قادر على) باللغة الإنجليزية؟",
+        answers: ["able", "willing", "possible", "necessary"],
+        correct: 0
+      },
+      {
+        question: "7. أكمل: She has been living here ______ 2015.",
+        answers: ["for", "to", "in", "since"],
+        correct: 3
+      },
+      {
+        question: "8. What does 'improve' mean?",
+        answers: ["يتجاهل", "يحسن / يطور", "يدير", "ينتقل"],
+        correct: 1
+      },
+      {
+        question: "9. صيغة المقارنة لكلمة (good) هي:",
+        answers: ["gooder", "better", "well", "the goodest"],
+        correct: 1
+      },
+      {
+        question: "10. Which is correct: 'I am responsible ____ the project'?",
+        answers: ["about", "for", "from", "to"],
+        correct: 1
+      },
+      {
+        question: "11. أي كلمة تعني (يكتشف)؟",
+        answers: ["destroy", "discover", "decide", "describe"],
+        correct: 1
+      },
+      {
+        question: "12. في الماضي التام (Past Perfect)، أي جملة صحيحة؟",
+        answers: [
+          "I had gone before you arrived.",
+          "I has gone before you arrived.",
+          "I gone had before you arrived.",
+          "I was gone before you arrived."
+        ],
+        correct: 0
+      },
+      {
+        question: "13. Which word means (خائف) in English?",
+        answers: ["scary", "brave", "scared", "boring"],
+        correct: 2
+      },
+      {
+        question: "14. ما صيغة الماضي لفعل (fly)؟",
+        answers: ["flyed", "flew", "fliwed", "fled"],
+        correct: 1
+      },
+      {
+        question: "15. اختر الصفة المناسبة: 'He is very ______. He never tells lies.'",
+        answers: ["honest", "active", "lazy", "slow"],
+        correct: 0
+      }
+    ];
+
+    const fullQuestions = [
+      {
+        question: "1. Which word is the adverb form of 'quick'?",
+        answers: ["quicker", "quickest", "quickly", "quickness"],
+        correct: 2
+      },
+      {
+        question: "2. أي كلمة تعني (يخترع)؟",
+        answers: ["invest", "invent", "instruct", "inspect"],
+        correct: 1
+      },
+      {
+        question: "3. ما الترجمة الصحيحة لكلمة (Achievement)؟",
+        answers: ["إنجاز", "دعوة", "جدول", "منافسة"],
+        correct: 0
+      },
+      {
+        question: "4. Which sentence is in the passive voice?",
+        answers: [
+          "They built this house in 1990.",
+          "This house was built in 1990.",
+          "They are building this house in 1990.",
+          "They were building this house in 1990."
+        ],
+        correct: 1
+      },
+      {
+        question: "5. Choose the correct negative form: 'I have finished my homework' -> ____",
+        answers: [
+          "I didn't finish my homework",
+          "I haven't finished my homework",
+          "I don't have finished my homework",
+          "I wasn't finishing my homework"
+        ],
+        correct: 1
+      },
+      {
+        question: "6. معنى كلمة (encourage) هو:",
+        answers: ["يحرّر", "يشجّع", "ينظّم", "يكذب"],
+        correct: 1
+      },
+      {
+        question: "7. Which is correct about the superlative of 'bad'?",
+        answers: ["bader", "the badest", "the worst", "the baddest"],
+        correct: 2
+      },
+      {
+        question: "8. أكمل: 'He ______ working here for ten years.' (Present Perfect Continuous)",
+        answers: [
+          "have been",
+          "is been",
+          "has been",
+          "am been"
+        ],
+        correct: 2
+      },
+      {
+        question: "9. ما صيغة الماضي لفعل (ring)؟",
+        answers: ["rang", "ringed", "rung", "ranged"],
+        correct: 0
+      },
+      {
+        question: "10. أي كلمة تشير إلى (صُدفة) باللغة الإنجليزية؟",
+        answers: ["accidentally", "actually", "accurately", "actively"],
+        correct: 0
+      },
+      {
+        question: "11. What does 'determine' mean?",
+        answers: ["يحدد / يقرر", "يحفر", "يصطاد", "يمزح"],
+        correct: 0
+      },
+      {
+        question: "12. اختر الجملة الصحيحة في الماضي المستمر (Past Continuous):",
+        answers: [
+          "I was reading a book when you called.",
+          "I read a book when you was calling.",
+          "I have read a book when you called.",
+          "I am reading a book when you call."
+        ],
+        correct: 0
+      },
+      {
+        question: "13. (Rent) تعني:",
+        answers: ["يشتري", "يستأجر / يؤجّر", "يبيع", "يعطي"],
+        correct: 1
+      },
+      {
+        question: "14. Which phrase means (في أغلب الأحيان) in English?",
+        answers: ["from time to time", "most of the time", "now and then", "hardly ever"],
+        correct: 1
+      },
+      {
+        question: "15. أي كلمة تشير إلى (يستلم)؟",
+        answers: ["relieve", "receive", "reveal", "review"],
+        correct: 1
+      },
+      {
+        question: "16. في الزمن المستقبل البسيط (Simple Future)، أي جملة صحيحة؟",
+        answers: [
+          "I will go to the party tomorrow.",
+          "I am will go to the party tomorrow.",
+          "I going to the party tomorrow.",
+          "I will going to the party tomorrow."
+        ],
+        correct: 0
+      },
+      {
+        question: "17. كلمة (huge) تعني:",
+        answers: ["صغير", "ضخم", "طويل", "نحيف"],
+        correct: 1
+      },
+      {
+        question: "18. Which is the correct third conditional form?",
+        answers: [
+          "If I had known, I would help you.",
+          "If I knew, I will help you.",
+          "If I had known, I would have helped you.",
+          "If I know, I would help you."
+        ],
+        correct: 2
+      },
+      {
+        question: "19. ما التصريف الثالث (Past Participle) لفعل (come)؟",
+        answers: ["came", "comes", "coming", "come"],
+        correct: 3
+      },
+      {
+        question: "20. What does 'exaggerate' mean?",
+        answers: [
+          "يلغي", 
+          "يبالغ / يبالغ في الوصف", 
+          "يتوقع", 
+          "يفشل"
+        ],
+        correct: 1
+      }
+    ];
+
+    // 3. اختيار الأسئلة حسب نوع الاختبار
+    let selectedQuestions = [];
+    let testTitle = "";
+
+    switch(testType) {
+      case "short":
+        selectedQuestions = shortQuestions;
+        testTitle = "اختبار قصير (10 أسئلة)";
+        break;
+      case "medium":
+        selectedQuestions = mediumQuestions;
+        testTitle = "اختبار متوسط (15 سؤال)";
+        break;
+      case "full":
+      default:
+        selectedQuestions = fullQuestions;
+        testTitle = "اختبار كامل (20 سؤال)";
+        break;
+    }
+
+    document.getElementById("testTitle").textContent = testTitle;
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const quizContainer = document.getElementById("quiz");
+    const nextBtn = document.getElementById("nextBtn");
+    const progressFill = document.getElementById("progressFill");
+
+    // 4. دالة عرض السؤال
+    function loadQuestion() {
+      quizContainer.innerHTML = "";
+
+      // تحديث شريط التقدم
+      const progressPercent = (currentQuestionIndex / selectedQuestions.length) * 100;
+      progressFill.style.width = progressPercent + "%";
+
+      const currentQuestion = selectedQuestions[currentQuestionIndex];
+
+      const questionNumber = document.createElement("p");
+      questionNumber.className = "question-number";
+      questionNumber.textContent = `السؤال ${currentQuestionIndex + 1} من ${selectedQuestions.length}`;
+
+      const questionText = document.createElement("p");
+      questionText.className = "question-text";
+      questionText.textContent = currentQuestion.question;
+
+      const answersList = document.createElement("ul");
+      answersList.className = "answers";
+
+      currentQuestion.answers.forEach((ans, idx) => {
+        const li = document.createElement("li");
+        
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "answer";
+        radio.value = idx;
+        radio.id = `answer-${idx}`;
+
+        const label = document.createElement("label");
+        label.htmlFor = `answer-${idx}`;
+        label.textContent = ans;
+
+        li.appendChild(radio);
+        li.appendChild(label);
+        answersList.appendChild(li);
+      });
+
+      quizContainer.appendChild(questionNumber);
+      quizContainer.appendChild(questionText);
+      quizContainer.appendChild(answersList);
+    }
+
+    // 5. عند الضغط على زر التالي
+    nextBtn.addEventListener("click", () => {
+      const selectedOption = document.querySelector('input[name="answer"]:checked');
+      if (!selectedOption) {
+        alert("يرجى اختيار إجابة أولاً.");
+        return;
+      }
+
+      // التحقق من الإجابة
+      const userAnswer = parseInt(selectedOption.value);
+      if (userAnswer === selectedQuestions[currentQuestionIndex].correct) {
+        score++;
+      }
+
+      // الانتقال للسؤال التالي
+      currentQuestionIndex++;
+      if (currentQuestionIndex < selectedQuestions.length) {
+        loadQuestion();
+      } else {
+        endQuiz();
+      }
+    });
+
+    // 6. إنهاء الاختبار
+    function endQuiz() {
+      localStorage.setItem("userScore", score);
+      localStorage.setItem("totalQuestions", selectedQuestions.length);
+      window.location.href = "result.html";
+    }
+
+    // بدء عرض السؤال الأول
+    loadQuestion();
+  </script>
+</body>
+</html>

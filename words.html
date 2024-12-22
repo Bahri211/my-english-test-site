@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>zeman - أهم الكلمات</title>
+
+  <!-- خط جوجل -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- ========== CSS داخلي ========== -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Tajawal", sans-serif;
+    }
+    body {
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* خلفية متدرجة */
+      background: linear-gradient(135deg, #000046, #1CB5E0);
+      color: #fff;
+    }
+
+    header, main, footer {
+      width: 100%;
+      max-width: 700px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-weight: 700;
+    }
+    header p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      padding: 20px;
+    }
+
+    .word-list {
+      text-align: left;
+      margin-top: 20px;
+      line-height: 1.8;
+    }
+    .word-list li {
+      margin-bottom: 10px;
+      background: #fefefe;
+      border-radius: 6px;
+      padding: 10px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .word-list li:hover {
+      background: #f0f0f0;
+      transform: translateX(5px);
+    }
+    .en {
+      font-weight: 700;
+      color: #000046;
+    }
+    .ar {
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #1CB5E0;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+      margin-top: 20px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+    .btn:hover {
+      background: #17a2cc;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #fff;
+      margin-top: auto;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+    }
+    
+    @media (min-width: 768px){
+      header h2 {
+        font-size: 2.4rem;
+      }
+      .btn {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- رأس الصفحة -->
+  <header>
+    <h2>zeman - أهم الكلمات</h2>
+    <p>مجموعة كلمات إنجليزية أساسية مع ترجمتها، لمساعدتك على بناء مفرداتك.</p>
+  </header>
+
+  <!-- المحتوى -->
+  <main>
+    <div class="container">
+      <ul class="word-list">
+        <li>
+          <span class="en">Water</span>  
+          <br/>
+          <span class="ar">ماء</span>
+        </li>
+        <li>
+          <span class="en">Food</span>
+          <br/>
+          <span class="ar">طعام</span>
+        </li>
+        <li>
+          <span class="en">House</span>
+          <br/>
+          <span class="ar">منزل</span>
+        </li>
+        <li>
+          <span class="en">Time</span>
+          <br/>
+          <span class="ar">وقت / زمن</span>
+        </li>
+        <li>
+          <span class="en">Friend</span>
+          <br/>
+          <span class="ar">صديق</span>
+        </li>
+        <li>
+          <span class="en">Family</span>
+          <br/>
+          <span class="ar">عائلة</span>
+        </li>
+        <li>
+          <span class="en">Travel</span>
+          <br/>
+          <span class="ar">سفر</span>
+        </li>
+        <li>
+          <span class="en">Important</span>
+          <br/>
+          <span class="ar">مهم</span>
+        </li>
+        <li>
+          <span class="en">Because</span>
+          <br/>
+          <span class="ar">لأن</span>
+        </li>
+        <li>
+          <span class="en">Beautiful</span>
+          <br/>
+          <span class="ar">جميل</span>
+        </li>
+        <li>
+          <span class="en">Problem</span>
+          <br/>
+          <span class="ar">مشكلة</span>
+        </li>
+        <li>
+          <span class="en">Solution</span>
+          <br/>
+          <span class="ar">حل</span>
+        </li>
+        <li>
+          <span class="en">Experience</span>
+          <br/>
+          <span class="ar">تجربة</span>
+        </li>
+        <li>
+          <span class="en">Language</span>
+          <br/>
+          <span class="ar">لغة</span>
+        </li>
+        <li>
+          <span class="en">Country</span>
+          <br/>
+          <span class="ar">دولة / بلد</span>
+        </li>
+        <li>
+          <span class="en">Laptop</span>
+          <br/>
+          <span class="ar">حاسوب محمول</span>
+        </li>
+        <li>
+          <span class="en">Opportunity</span>
+          <br/>
+          <span class="ar">فرصة</span>
+        </li>
+        <li>
+          <span class="en">Develop</span>
+          <br/>
+          <span class="ar">يطوّر</span>
+        </li>
+        <li>
+          <span class="en">Restaurant</span>
+          <br/>
+          <span class="ar">مطعم</span>
+        </li>
+        <li>
+          <span class="en">Comfortable</span>
+          <br/>
+          <span class="ar">مريح</span>
+        </li>
+      </ul>
+      <!-- زر عودة للرئيسية -->
+      <a href="index.html" class="btn">عودة للرئيسية</a>
+    </div>
+  </main>
+
+  <!-- تذييل -->
+  <footer>
+    <p>&copy; 2024 zeman - جميع الحقوق محفوظة</p>
+  </footer>
+</body>
+</html>

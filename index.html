@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>zeman - الرئيسية</title>
+
+  <!-- خط Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- ========== CSS داخلي ========== -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Tajawal", sans-serif;
+    }
+    body {
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+      /* خلفية متدرجة */
+      background: linear-gradient(135deg, #283c86, #45a247);
+    }
+
+    header, main, footer {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+      font-weight: 700;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.85);
+      color: #333;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      font-weight: 600;
+    }
+    .btn:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #fefefe;
+    }
+
+    /* شاشات أكبر من 768px */
+    @media (min-width: 768px) {
+      header h1 {
+        font-size: 2.8rem;
+      }
+      header p {
+        font-size: 1.3rem;
+      }
+      .btn {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- رأس الصفحة -->
+  <header>
+    <h1>اختبار تحديد مستوى اللغة الإنجليزية</h1>
+    <p>مرحبًا بك في موقع <strong>zeman</strong>، اختبر لغتك أو تعلّم أهم الكلمات والجمل!</p>
+  </header>
+
+  <!-- المحتوى الرئيسي: أزرار للاختبار أو لصفحات أخرى -->
+  <main>
+    <!-- أزرار الاختبارات الثلاثة -->
+    <button class="btn" onclick="selectTest('short')">اختبار قصير</button>
+    <button class="btn" onclick="selectTest('medium')">اختبار متوسط</button>
+    <button class="btn" onclick="selectTest('full')">اختبار كامل</button>
+    <br/>
+    <!-- زر عرض الجمل المهمة -->
+    <a class="btn" href="sentences.html">أهم الجمل</a>
+    <!-- زر عرض الكلمات المهمة -->
+    <a class="btn" href="words.html">أهم الكلمات</a>
+  </main>
+
+  <!-- تذييل -->
+  <footer>
+    <p>&copy; 2024 zeman - جميع الحقوق محفوظة</p>
+  </footer>
+
+  <!-- سكربت لحفظ نوع الاختبار في LocalStorage والانتقال لـ test.html -->
+  <script>
+    function selectTest(type) {
+      localStorage.setItem("testType", type);
+      window.location.href = "test.html";
+    }
+  </script>
+</body>
+</html>
